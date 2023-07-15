@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+  # api:
+  #   container_name: api
+  #   build:
+  #     context: ./server/VerzelCars.API
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 5000:80
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ConnectionStrings__DefaultConnection=Server=db,1433;Database=Carshop;User Id=sa;Password=Password123;
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+
+  db:
+    container_name: db
+    image: mcr.microsoft.com/mssql/server:2019-CU13-ubuntu-20.04
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password123
+      - MSSQL_PID=Developer
+    healthcheck:
+      test:
+        [
+          'CMD',
+          '/opt/mssql-tools/bin/sqlcmd',
+          '-S',
+          'localhost',
+          '-U',
+          'sa',
+          '-P',
+          'Password123',
+          '-Q',
+          'SELECT 1',
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
