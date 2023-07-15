@@ -1,3 +1,4 @@
+using Carshop.Domain.Interfaces;
 using Carshop.Domain.Models;
 using Carshop.Infrastructure.Context;
 
@@ -5,8 +6,11 @@ namespace Carshop.Infrastructure.Repositories;
 
 public class BrandRepository : Repository<Brand>
 {
-    public BrandRepository(AppDbContext context) : base(context)
+    private readonly IUnitOfWork _unitOfWork;
+
+    public BrandRepository(AppDbContext context, IUnitOfWork unitOfWork) : base(context)
     {
+        _unitOfWork = unitOfWork;
     }
 
     public override Brand? GetById(Guid id)
@@ -26,15 +30,21 @@ public class BrandRepository : Repository<Brand>
     public override void Save(Brand entity)
     {
         _context.Brands.Add(entity);
+
+        _unitOfWork.Commit();
     }
 
     public override void Update(Brand entity)
     {
         _context.Brands.Update(entity);
+
+        _unitOfWork.Commit();
     }
 
     public override void Delete(Brand entity)
     {
         _context.Brands.Remove(entity);
+
+        _unitOfWork.Commit();
     }
 }
