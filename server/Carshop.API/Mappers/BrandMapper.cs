@@ -9,5 +9,6 @@ public class BrandMapper : Profile
     public BrandMapper()
     {
         CreateMap<BrandDTO, Brand>().ReverseMap();
+        CreateMap<Brand, BrandResponse>().ReverseMap();
     }
 }

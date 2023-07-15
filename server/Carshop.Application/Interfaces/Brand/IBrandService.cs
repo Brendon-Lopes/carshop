@@ -8,5 +8,5 @@ public interface IBrandService
 
     IEnumerable<Domain.Models.Brand> GetAll();
 
-    void Save(BrandDTO brand);
+    Domain.Models.Brand Save(BrandDTO brand);
 }

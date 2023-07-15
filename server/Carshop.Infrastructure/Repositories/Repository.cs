@@ -8,7 +8,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
 {
     protected readonly AppDbContext _context;
 
-    public Repository(AppDbContext context)
+    protected Repository(AppDbContext context)
     {
         _context = context;
     }
@@ -27,9 +27,9 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
         return query.ToList();
     }
 
-    public virtual void Save(TEntity entity)
+    public virtual TEntity Save(TEntity entity)
     {
-        _context.Set<TEntity>().Add(entity);
+        return _context.Set<TEntity>().Add(entity).Entity;
     }
 
     public virtual void Update(TEntity entity)

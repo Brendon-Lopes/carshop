@@ -31,10 +31,12 @@ public class BrandService : IBrandService
         return _brandRepository.GetAll();
     }
 
-    public void Save(BrandDTO brand)
+    public Brand Save(BrandDTO brand)
     {
         var newBrand = _mapper.Map<Brand>(brand);
 
-        _brandRepository.Save(newBrand);
+        var created = _brandRepository.Save(newBrand);
+
+        return created;
     }
 }

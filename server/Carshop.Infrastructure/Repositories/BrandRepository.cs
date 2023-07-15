@@ -27,11 +27,13 @@ public class BrandRepository : Repository<Brand>
         return query.ToList();
     }
 
-    public override void Save(Brand entity)
+    public override Brand Save(Brand entity)
     {
-        _context.Brands.Add(entity);
+        var created = _context.Brands.Add(entity);
 
         _unitOfWork.Commit();
+
+        return created.Entity;
     }
 
     public override void Update(Brand entity)

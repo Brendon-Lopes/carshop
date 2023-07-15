@@ -34,8 +34,10 @@ public class BrandController : ControllerBase
     [HttpPost(Name = "SaveBrand")]
     public IActionResult Save(BrandDTO brandDto)
     {
-        _brandService.Save(brandDto);
+        var brand = _brandService.Save(brandDto);
 
-        return Ok();
+        var response = _mapper.Map<BrandResponse>(brand);
+
+        return CreatedAtAction(nameof(GetById), new {id = brand.Id}, response);
     }
 }
