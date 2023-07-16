@@ -8,12 +8,12 @@ namespace Carshop.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class BrandController : ControllerBase
+public class BrandsController : ControllerBase
 {
     private readonly IBrandService _brandService;
     private readonly IMapper _mapper;
 
-    public BrandController(IBrandService brandService, IMapper mapper)
+    public BrandsController(IBrandService brandService, IMapper mapper)
     {
         _brandService = brandService;
         _mapper = mapper;
@@ -25,7 +25,7 @@ public class BrandController : ControllerBase
         return await _brandService.GetAll();
     }
 
-    [HttpGet("{id:guid}", Name = "GetBrandById")]
+    [HttpGet("{id}", Name = "GetBrandById")]
     public async Task<Brand> GetById(Guid id)
     {
         return await _brandService.GetById(id);
