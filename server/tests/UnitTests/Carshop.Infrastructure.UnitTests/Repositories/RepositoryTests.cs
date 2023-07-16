@@ -49,6 +49,9 @@ public class RepositoryTests
             // Assert
             result.Should().NotBeNull();
             result.Should().BeEquivalentTo(car);
+
+            await context.Database.EnsureDeletedAsync();
+            await context.Database.EnsureCreatedAsync();
         }
     }
 
@@ -95,6 +98,9 @@ public class RepositoryTests
             {
                 resultList.Should().Contain(c => car.Name == c.Name);
             }
+
+            await context.Database.EnsureDeletedAsync();
+            await context.Database.EnsureCreatedAsync();
         }
     }
 
@@ -123,6 +129,9 @@ public class RepositoryTests
 
             result.Should().NotBeNull();
             result.Should().BeEquivalentTo(car);
+
+            await context.Database.EnsureDeletedAsync();
+            await context.Database.EnsureCreatedAsync();
         }
     }
 
@@ -159,6 +168,9 @@ public class RepositoryTests
 
             result.Should().NotBeNull();
             result.Should().BeEquivalentTo(car);
+
+            await context.Database.EnsureDeletedAsync();
+            await context.Database.EnsureCreatedAsync();
         }
     }
 

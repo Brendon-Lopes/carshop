@@ -4,6 +4,7 @@ using Carshop.Infrastructure.Context;
 using Carshop.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading.Tasks;
 using Bogus;
 using FluentAssertions;
 using Xunit;
@@ -12,31 +13,26 @@ namespace Carshop.Infrastructure.UnitTests.Repositories;
 
 public class BrandRepositoryTests
 {
-    private readonly DbContextOptions<AppDbContext> _options;
-
-    public BrandRepositoryTests()
-    {
-        _options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase(databaseName: "TestDatabase")
-            .Options;
-    }
-
     [Fact]
-    public async void GetAll_ReturnsAllBrands()
+    public async Task GetAll_ReturnsAllBrands()
     {
         // Arrange
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
         var brands = new Faker<Brand>()
             .RuleFor(b => b.Id, f => f.Random.Guid())
             .RuleFor(b => b.Name, f => f.Company.CompanyName())
             .Generate(3);
 
-        await using (var context = new AppDbContext(_options))
+        await using (var context = new AppDbContext(options))
         {
             await context.Brands.AddRangeAsync(brands);
             await context.SaveChangesAsync();
         }
 
-        await using (var context = new AppDbContext(_options))
+        await using (var context = new AppDbContext(options))
         {
             var repository = new BrandRepository(context);
 
@@ -58,26 +54,32 @@ public class BrandRepositoryTests
     public async void GetById_ShouldReturnBrand_WhenValidIdIsProvided()
     {
         // Arrange
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
         Guid id;
         var brand = new Brand { Name = "Test Brand" };
 
-        await using (var context = new AppDbContext(_options))
+        await using (var context = new AppDbContext(options))
         {
             var created = await context.Brands.AddAsync(brand);
 
-            id = created.Entity.Id;
-
             await context.SaveChangesAsync();
+
+            id = created.Entity.Id;
         }
 
-        await using (var context = new AppDbContext(_options))
+        await using (var context = new AppDbContext(options))
         {
             var repository = new BrandRepository(context);
 
             // Act
             var result = await repository.GetById(id);
+            var count = await context.Brands.CountAsync();
 
             // Assert
+            count.Should().Be(1);
             result.Should().NotBeNull();
             result!.Id.Should().Be(id);
             result.Name.Should().Be("Test Brand");
@@ -85,10 +87,14 @@ public class BrandRepositoryTests
     }
 
     [Fact]
-    public async void Save_Should_AddBrandToDatabaseAndReturnCreatedEntity()
+    public async Task Save_Should_AddBrandToDatabaseAndReturnCreatedEntity()
     {
         // Arrange
-        await using var context = new AppDbContext(_options);
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        await using var context = new AppDbContext(options);
 
         // Create the repository instance
         var repository = new BrandRepository(context);
@@ -109,27 +115,30 @@ public class BrandRepositoryTests
     }
 
     [Fact]
-    public async void GetByName_ShouldReturnBrand_WhenBrandExists()
+    public async Task GetByName_ShouldReturnBrand_WhenBrandExists()
     {
         // Arrange
-        var brandName = new Faker().Company.CompanyName();
-        var brand = new Brand { Name = brandName };
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
 
-        await using (var context = new AppDbContext(_options))
+        var brand = new Brand { Name = "brandName" };
+
+        await using (var context = new AppDbContext(options))
         {
-            var repository = new BrandRepository(context);
-            await repository.Save(brand);
+            await context.Set<Brand>().AddAsync(brand);
+            await context.SaveChangesAsync();
         }
 
         // Act
-        await using (var context = new AppDbContext(_options))
+        await using (var context = new AppDbContext(options))
         {
             var repository = new BrandRepository(context);
-            var result = await repository.GetByName(brandName);
+            var result = await repository.GetByName("brandName");
 
             // Assert
             result.Should().NotBeNull();
-            result!.Name.Should().Be(brandName);
+            result!.Name.Should().Be("brandName");
         }
     }
 }
