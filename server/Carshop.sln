@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carshop.Domain", "Carshop.Domain\Carshop.Domain.csproj", "{BF460302-0CAB-4F0C-A455-6C51374B6830}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carshop.Domain", "src\Carshop.Domain\Carshop.Domain.csproj", "{BF460302-0CAB-4F0C-A455-6C51374B6830}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carshop.Application", "Carshop.Application\Carshop.Application.csproj", "{D4373296-8AA1-42BF-BD7D-FA0073DFEB91}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carshop.Application", "src\Carshop.Application\Carshop.Application.csproj", "{D4373296-8AA1-42BF-BD7D-FA0073DFEB91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carshop.Infrastructure", "Carshop.Infrastructure\Carshop.Infrastructure.csproj", "{F511302A-103C-424C-AED3-87821AD6F309}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carshop.Infrastructure", "src\Carshop.Infrastructure\Carshop.Infrastructure.csproj", "{F511302A-103C-424C-AED3-87821AD6F309}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carshop.API", "Carshop.API\Carshop.API.csproj", "{AF5DB56B-1A7A-4750-BE46-EA589B6AE573}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carshop.API", "src\Carshop.API\Carshop.API.csproj", "{AF5DB56B-1A7A-4750-BE46-EA589B6AE573}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
