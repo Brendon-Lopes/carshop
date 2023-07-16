@@ -10,10 +10,10 @@ namespace Carshop.Application.Services;
 
 public class BrandService : IBrandService
 {
-    private readonly IRepository<Brand> _brandRepository;
+    private readonly IBrandRepository _brandRepository;
     private readonly IMapper _mapper;
 
-    public BrandService(IRepository<Brand> brandRepository, IMapper mapper)
+    public BrandService(IBrandRepository brandRepository, IMapper mapper)
     {
         _brandRepository = brandRepository;
         _mapper = mapper;
@@ -37,6 +37,11 @@ public class BrandService : IBrandService
     public async Task<Brand> Save(BrandDTO brand)
     {
         var newBrand = _mapper.Map<Brand>(brand);
+
+        var findByName = await _brandRepository.GetByName(brand.Name);
+
+        if (findByName is not null)
+            throw new CustomException($"Brand with name '{brand.Name}' already exists", HttpStatusCode.Conflict);
 
         var created = await _brandRepository.Save(newBrand);
 
