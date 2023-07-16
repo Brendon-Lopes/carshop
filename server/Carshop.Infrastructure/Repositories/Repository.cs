@@ -13,32 +13,38 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
         _context = context;
     }
 
-    public virtual TEntity? GetById(Guid id)
+    public virtual async Task<TEntity?> GetById(Guid id)
     {
-        var query = _context.Set<TEntity>().Where(e => e.Id == id);
-
-        return query.FirstOrDefault();
+        return await _context.Set<TEntity>().FindAsync(id);
     }
 
-    public virtual IEnumerable<TEntity> GetAll()
+    public virtual Task<IEnumerable<TEntity>> GetAll()
     {
-        var query = _context.Set<TEntity>();
-
-        return query.ToList();
+        return Task.FromResult(_context.Set<TEntity>().AsEnumerable());
     }
 
-    public virtual TEntity Save(TEntity entity)
+    public virtual async Task<TEntity> Save(TEntity entity)
     {
-        return _context.Set<TEntity>().Add(entity).Entity;
+        var created = await _context.Set<TEntity>().AddAsync(entity);
+
+        await _context.SaveChangesAsync();
+
+        return created.Entity;
     }
 
-    public virtual void Update(TEntity entity)
+    public virtual async Task<TEntity> Update(TEntity entity)
     {
-        _context.Set<TEntity>().Update(entity);
+        var result = _context.Set<TEntity>().Update(entity);
+
+        await _context.SaveChangesAsync();
+
+        return result.Entity;
     }
 
-    public virtual void Delete(TEntity entity)
+    public virtual async Task Delete(TEntity entity)
     {
         _context.Set<TEntity>().Remove(entity);
+
+        await _context.SaveChangesAsync();
     }
 }

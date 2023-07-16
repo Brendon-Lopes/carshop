@@ -20,21 +20,21 @@ public class BrandController : ControllerBase
     }
 
     [HttpGet(Name = "GetBrands")]
-    public IEnumerable<Brand> Get()
+    public async Task<IEnumerable<Brand>> Get()
     {
-        return _brandService.GetAll();
+        return await _brandService.GetAll();
     }
 
-    [HttpGet("{id}", Name = "GetBrandById")]
-    public Brand GetById(Guid id)
+    [HttpGet("{id:guid}", Name = "GetBrandById")]
+    public async Task<Brand> GetById(Guid id)
     {
-        return _brandService.GetById(id);
+        return await _brandService.GetById(id);
     }
 
     [HttpPost(Name = "SaveBrand")]
-    public IActionResult Save(BrandDTO brandDto)
+    public async Task<IActionResult> Save(BrandDTO brandDto)
     {
-        var brand = _brandService.Save(brandDto);
+        var brand = await _brandService.Save(brandDto);
 
         var response = _mapper.Map<BrandResponse>(brand);
 

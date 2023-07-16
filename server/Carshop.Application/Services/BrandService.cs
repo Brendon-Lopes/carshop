@@ -19,9 +19,9 @@ public class BrandService : IBrandService
         _mapper = mapper;
     }
 
-    public Brand GetById(Guid id)
+    public async Task<Brand> GetById(Guid id)
     {
-        var brand = _brandRepository.GetById(id);
+        var brand = await _brandRepository.GetById(id);
 
         if (brand is null)
             throw new CustomException("Brand not found", HttpStatusCode.NotFound);
@@ -29,16 +29,16 @@ public class BrandService : IBrandService
         return brand;
     }
 
-    public IEnumerable<Brand> GetAll()
+    public async Task<IEnumerable<Brand>> GetAll()
     {
-        return _brandRepository.GetAll();
+        return await _brandRepository.GetAll();
     }
 
-    public Brand Save(BrandDTO brand)
+    public async Task<Brand> Save(BrandDTO brand)
     {
         var newBrand = _mapper.Map<Brand>(brand);
 
-        var created = _brandRepository.Save(newBrand);
+        var created = await _brandRepository.Save(newBrand);
 
         return created;
     }

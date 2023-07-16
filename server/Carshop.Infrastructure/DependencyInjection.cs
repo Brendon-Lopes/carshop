@@ -18,8 +18,6 @@ public static class DependencyInjection
 
         services.AddScoped<IRepository<Brand>, BrandRepository>();
 
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
-
         return services;
     }
 }

@@ -1,52 +1,40 @@
-using Carshop.Domain.Interfaces;
 using Carshop.Domain.Models;
 using Carshop.Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Carshop.Infrastructure.Repositories;
 
 public class BrandRepository : Repository<Brand>
 {
-    private readonly IUnitOfWork _unitOfWork;
-
-    public BrandRepository(AppDbContext context, IUnitOfWork unitOfWork) : base(context)
+    public BrandRepository(AppDbContext context) : base(context)
     {
-        _unitOfWork = unitOfWork;
     }
 
-    public override Brand? GetById(Guid id)
+    public override async Task<Brand?> GetById(Guid id)
     {
-        var query = _context.Brands.Where(b => b.Id == id);
-
-        return query.FirstOrDefault();
+        return await _context.Brands.FindAsync(id);
     }
 
-    public override IEnumerable<Brand> GetAll()
+    public override async Task<IEnumerable<Brand>> GetAll()
     {
-        var query = _context.Brands;
-
-        return query.ToList();
+        return await _context.Brands.ToListAsync();
     }
 
-    public override Brand Save(Brand entity)
+    public override async Task<Brand> Save(Brand entity)
     {
-        var created = _context.Brands.Add(entity);
+        var created = await _context.Brands.AddAsync(entity);
 
-        _unitOfWork.Commit();
+        await _context.SaveChangesAsync();
 
         return created.Entity;
     }
 
-    public override void Update(Brand entity)
+    public override async Task<Brand> Update(Brand entity)
     {
-        _context.Brands.Update(entity);
+        var updatedBrand = _context.Brands.Update(entity);
 
-        _unitOfWork.Commit();
-    }
+        await _context.SaveChangesAsync();
 
-    public override void Delete(Brand entity)
-    {
-        _context.Brands.Remove(entity);
-
-        _unitOfWork.Commit();
+        return updatedBrand.Entity;
     }
 }
