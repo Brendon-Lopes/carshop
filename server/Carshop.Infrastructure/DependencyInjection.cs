@@ -1,5 +1,4 @@
 using Carshop.Domain.Interfaces;
-using Carshop.Domain.Models;
 using Carshop.Infrastructure.Context;
 using Carshop.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +15,7 @@ public static class DependencyInjection
             options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
         );
 
-        services.AddScoped<IRepository<Brand>, BrandRepository>();
+        services.AddScoped<IBrandRepository, BrandRepository>();
 
         return services;
     }
