@@ -1,3 +1,5 @@
+using Carshop.Domain.Enums;
+
 namespace Carshop.Domain.Models;
 
 public class User : BaseEntity
@@ -6,5 +8,5 @@ public class User : BaseEntity
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
-    public string Role { get; set; } = string.Empty;
+    public UserRoles Role { get; set; } = UserRoles.Customer;
 }
