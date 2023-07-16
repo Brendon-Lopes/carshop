@@ -8,7 +8,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
 {
     protected readonly AppDbContext _context;
 
-    protected Repository(AppDbContext context)
+    public Repository(AppDbContext context)
     {
         _context = context;
     }
