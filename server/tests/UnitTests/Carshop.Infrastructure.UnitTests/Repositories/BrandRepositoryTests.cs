@@ -10,7 +10,6 @@ using Xunit;
 
 namespace Carshop.Infrastructure.UnitTests.Repositories;
 
-
 public class BrandRepositoryTests
 {
     private readonly DbContextOptions<AppDbContext> _options;
