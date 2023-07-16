@@ -1,3 +1,4 @@
+using Carshop.API.Middleware;
 using Carshop.Application;
 using Carshop.Infrastructure;
 
@@ -6,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+
+    builder.Services.AddScoped<ExceptionHandlerMiddleware>();
 
     // dependency injection
     builder.Services
@@ -23,6 +26,7 @@ var app = builder.Build();
         app.UseSwaggerUI();
     }
 
+    app.UseMiddleware<ExceptionHandlerMiddleware>();
     app.UseHttpsRedirection();
     app.UseAuthorization();
     app.MapControllers();
