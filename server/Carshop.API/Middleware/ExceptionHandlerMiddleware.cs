@@ -34,7 +34,11 @@ public class ExceptionHandlerMiddleware : IMiddleware
         if (exception is CustomException customException)
             context.Response.StatusCode = (int)customException.Status;
 
-        var result = JsonSerializer.Serialize(new { error = exception.Message });
+        var result = JsonSerializer.Serialize(new
+        {
+            error = exception.Message,
+            statusCode = context.Response.StatusCode
+        });
 
         return context.Response.WriteAsync(result);
     }
