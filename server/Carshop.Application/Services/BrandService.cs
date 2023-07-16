@@ -1,5 +1,7 @@
+using System.Net;
 using AutoMapper;
 using Carshop.Application.DTOs;
+using Carshop.Application.Exceptions;
 using Carshop.Application.Interfaces.Brand;
 using Carshop.Domain.Interfaces;
 using Carshop.Domain.Models;
@@ -21,7 +23,8 @@ public class BrandService : IBrandService
     {
         var brand = _brandRepository.GetById(id);
 
-        if (brand is null) throw new Exception("Brand not found");
+        if (brand is null)
+            throw new CustomException("Brand not found", HttpStatusCode.NotFound);
 
         return brand;
     }
