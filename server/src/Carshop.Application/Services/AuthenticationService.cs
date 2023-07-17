@@ -46,8 +46,21 @@ public class AuthenticationService : IAuthenticationService
         return response;
     }
 
-    public async Task<AuthenticationResponse> Login(string email, string password)
+    public async Task<AuthenticationResponse> Login(UserLoginDTO userLoginDto)
     {
-        throw new NotImplementedException();
+        var user = await _userRepository.GetByEmail(userLoginDto.Email);
+
+        if (user is null)
+            throw new CustomException("Invalid email or password", HttpStatusCode.Unauthorized);
+
+        if (!_passwordHandler.VerifyPassword(userLoginDto.Password, user.Password))
+            throw new CustomException("Invalid email or password", HttpStatusCode.Unauthorized);
+
+        var token = _jwtTokenGenerator.GenerateToken(user);
+
+        var response = _mapper.Map<AuthenticationResponse>(user);
+        response.Token = token;
+
+        return response;
     }
 }
