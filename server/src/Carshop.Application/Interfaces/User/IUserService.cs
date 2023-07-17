@@ -6,6 +6,8 @@ public interface IUserService
 {
     Task<Domain.Models.User> GetById(Guid id);
 
+    Task<Domain.Models.User> GetByEmail(string email);
+
     Task<IEnumerable<Domain.Models.User>> GetAll();
 
     Task<Domain.Models.User> Save(UserDTO user);
