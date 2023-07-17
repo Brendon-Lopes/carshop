@@ -1,3 +1,4 @@
+using Carshop.API.Configuration;
 using Carshop.API.Middleware;
 using Carshop.Application;
 using Carshop.Infrastructure;
@@ -10,10 +11,17 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddScoped<ExceptionHandlerMiddleware>();
 
-    // dependency injection
+    // Dependency injection
     builder.Services
         .AddInfrastructure(builder.Configuration)
         .AddApplication();
+
+    // Authentication / Authorization
+    builder.Services
+        .ConfigureAuthentication(builder.Configuration)
+        .ConfigureAuthorization();
+
+    builder.Services.ConfigureCors();
 
     builder.Services.AddAutoMapper(typeof(Program).Assembly);
 }
@@ -28,7 +36,12 @@ var app = builder.Build();
 
     app.UseMiddleware<ExceptionHandlerMiddleware>();
     app.UseHttpsRedirection();
+
+    app.UseCors("CorsPolicy");
+
+    app.UseAuthentication();
     app.UseAuthorization();
+
     app.MapControllers();
     app.Run();
 }
