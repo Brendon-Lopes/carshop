@@ -32,7 +32,7 @@ public class AuthenticationService : IAuthenticationService
         var findUser = await _userRepository.GetByEmail(userDto.Email);
 
         if (findUser is not null)
-            throw new CustomException("Email already registered", HttpStatusCode.BadRequest);
+            throw new CustomException("Email already registered", HttpStatusCode.Conflict);
 
         // hash password
         var user = _mapper.Map<User>(userDto);
@@ -42,7 +42,11 @@ public class AuthenticationService : IAuthenticationService
         var savedUser = await _userRepository.Save(user);
 
         // create token
-        var token = _jwtTokenGenerator.GenerateToken(savedUser.Id, savedUser.FirstName, savedUser.LastName, savedUser.Email, savedUser.Role);
+        var token = _jwtTokenGenerator.GenerateToken(savedUser.Id,
+            savedUser.FirstName,
+            savedUser.LastName,
+            savedUser.Email,
+            savedUser.Role);
 
         // map user to response
         var response = _mapper.Map<AuthenticationResponse>(user);

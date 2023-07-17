@@ -17,7 +17,7 @@ public class JwtTokenGenerator : IJwtTokenGenerator
         _jwtSettings = jwtOptions.Value;
     }
 
-    public string GenerateToken(Guid userId, string firstName, string lastName, string email, UserRoles role)
+    public string GenerateToken(Guid userId, string firstName, string lastName, string email, string role)
     {
         var claims = new List<Claim>
         {
@@ -25,7 +25,7 @@ public class JwtTokenGenerator : IJwtTokenGenerator
             new(JwtRegisteredClaimNames.Email, email),
             new(JwtRegisteredClaimNames.GivenName, firstName),
             new(JwtRegisteredClaimNames.FamilyName, lastName),
-            new(ClaimTypes.Role, role.ToString()),
+            new(ClaimTypes.Role, role)
         };
 
         var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtSettings.Secret));
