@@ -28,27 +28,18 @@ public class AuthenticationService : IAuthenticationService
 
     public async Task<AuthenticationResponse> Register(UserDTO userDto)
     {
-        // check if user exists
         var findUser = await _userRepository.GetByEmail(userDto.Email);
 
         if (findUser is not null)
             throw new CustomException("Email already registered", HttpStatusCode.Conflict);
 
-        // hash password
         var user = _mapper.Map<User>(userDto);
         user.Password = _passwordHandler.HashPassword(userDto.Password);
 
-        // save user
         var savedUser = await _userRepository.Save(user);
 
-        // create token
-        var token = _jwtTokenGenerator.GenerateToken(savedUser.Id,
-            savedUser.FirstName,
-            savedUser.LastName,
-            savedUser.Email,
-            savedUser.Role);
+        var token = _jwtTokenGenerator.GenerateToken(savedUser);
 
-        // map user to response
         var response = _mapper.Map<AuthenticationResponse>(user);
         response.Token = token;
 
