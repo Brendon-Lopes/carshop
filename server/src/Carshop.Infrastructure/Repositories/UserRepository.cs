@@ -7,7 +7,7 @@ namespace Carshop.Infrastructure.Repositories;
 
 public class UserRepository : Repository<User>, IUserRepository
 {
-    protected UserRepository(AppDbContext context) : base(context)
+    public UserRepository(AppDbContext context) : base(context)
     {
     }
 
