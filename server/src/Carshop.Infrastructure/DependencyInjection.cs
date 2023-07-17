@@ -1,4 +1,6 @@
+using Carshop.Application.Interfaces.Authentication;
 using Carshop.Domain.Interfaces;
+using Carshop.Infrastructure.Authentication;
 using Carshop.Infrastructure.Context;
 using Carshop.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +18,12 @@ public static class DependencyInjection
         );
 
         services.AddScoped<IBrandRepository, BrandRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+
+        services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+        services.AddSingleton<IPasswordHandler, PasswordHandler>();
+
+        services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
 
         return services;
     }
