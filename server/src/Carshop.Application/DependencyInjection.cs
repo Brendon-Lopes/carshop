@@ -1,5 +1,6 @@
 using Carshop.Application.Interfaces.Authentication;
 using Carshop.Application.Interfaces.Brand;
+using Carshop.Application.Interfaces.Car;
 using Carshop.Application.Interfaces.User;
 using Carshop.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@ public static class DependencyInjection
     {
         services.AddScoped<IBrandService, BrandService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<ICarService, CarService>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();
 
         return services;

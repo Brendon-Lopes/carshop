@@ -19,6 +19,7 @@ public static class DependencyInjection
 
         services.AddScoped<IBrandRepository, BrandRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ICarRepository, CarRepository>();
 
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
         services.AddSingleton<IPasswordHandler, PasswordHandler>();
