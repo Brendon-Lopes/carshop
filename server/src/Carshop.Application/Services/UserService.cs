@@ -29,6 +29,16 @@ public class UserService : IUserService
         return user;
     }
 
+    public async Task<User> GetByEmail(string email)
+    {
+        var user = await _userRepository.GetByEmail(email);
+
+        if (user is null)
+            throw new CustomException("User not found", HttpStatusCode.NotFound);
+
+        return user;
+    }
+
     public async Task<IEnumerable<User>> GetAll()
     {
         return await _userRepository.GetAll();
