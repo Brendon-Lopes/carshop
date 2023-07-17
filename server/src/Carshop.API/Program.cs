@@ -23,6 +23,8 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.ConfigureCors();
 
+    builder.Services.ConfigureSwagger();
+
     builder.Services.AddAutoMapper(typeof(Program).Assembly);
 }
 
