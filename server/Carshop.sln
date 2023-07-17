@@ -3,13 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carshop.Domain", "Carshop.Domain\Carshop.Domain.csproj", "{BF460302-0CAB-4F0C-A455-6C51374B6830}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carshop.Domain", "src\Carshop.Domain\Carshop.Domain.csproj", "{BF460302-0CAB-4F0C-A455-6C51374B6830}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carshop.Application", "Carshop.Application\Carshop.Application.csproj", "{D4373296-8AA1-42BF-BD7D-FA0073DFEB91}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carshop.Application", "src\Carshop.Application\Carshop.Application.csproj", "{D4373296-8AA1-42BF-BD7D-FA0073DFEB91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carshop.Infrastructure", "Carshop.Infrastructure\Carshop.Infrastructure.csproj", "{F511302A-103C-424C-AED3-87821AD6F309}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carshop.Infrastructure", "src\Carshop.Infrastructure\Carshop.Infrastructure.csproj", "{F511302A-103C-424C-AED3-87821AD6F309}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carshop.API", "Carshop.API\Carshop.API.csproj", "{AF5DB56B-1A7A-4750-BE46-EA589B6AE573}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carshop.API", "src\Carshop.API\Carshop.API.csproj", "{AF5DB56B-1A7A-4750-BE46-EA589B6AE573}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C05070CF-23BE-4146-8F23-DD73AB2ADB9C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{BF1FB975-82B6-46C0-B68B-20E2E658918D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carshop.Infrastructure.UnitTests", "tests\UnitTests\Carshop.Infrastructure.UnitTests\Carshop.Infrastructure.UnitTests.csproj", "{B510D4FA-14EB-43E0-9FE2-7030B1FEE8A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +42,13 @@ Global
 		{AF5DB56B-1A7A-4750-BE46-EA589B6AE573}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF5DB56B-1A7A-4750-BE46-EA589B6AE573}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF5DB56B-1A7A-4750-BE46-EA589B6AE573}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B510D4FA-14EB-43E0-9FE2-7030B1FEE8A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B510D4FA-14EB-43E0-9FE2-7030B1FEE8A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B510D4FA-14EB-43E0-9FE2-7030B1FEE8A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B510D4FA-14EB-43E0-9FE2-7030B1FEE8A9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BF1FB975-82B6-46C0-B68B-20E2E658918D} = {C05070CF-23BE-4146-8F23-DD73AB2ADB9C}
+		{B510D4FA-14EB-43E0-9FE2-7030B1FEE8A9} = {BF1FB975-82B6-46C0-B68B-20E2E658918D}
 	EndGlobalSection
 EndGlobal
