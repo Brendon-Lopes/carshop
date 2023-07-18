@@ -4,5 +4,12 @@ namespace Carshop.Application.Interfaces.Car;
 
 public interface ICarService
 {
-    Task<Domain.Models.Car> Save(CarDTO car);
+    Task<GetAllCarsFilteredAndPaginatedResponse> GetAllCarsFilteredAndPaginated(
+        int page,
+        int pageSize,
+        string name,
+        string brandName,
+        bool decrescentOrder = true);
+
+    Task<CarResponse> Save(CarDTO car);
 }
