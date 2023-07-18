@@ -21,7 +21,7 @@ public class ExceptionHandlerMiddleware : IMiddleware
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Error: {ex}");
+            _logger.LogError("Error: {Ex}", ex);
             await HandleExceptionAsync(context, ex);
         }
     }
@@ -37,7 +37,8 @@ public class ExceptionHandlerMiddleware : IMiddleware
         var result = JsonSerializer.Serialize(new
         {
             error = exception.Message,
-            statusCode = context.Response.StatusCode
+            statusCode = context.Response.StatusCode,
+            status = Enum.GetName(typeof(HttpStatusCode), context.Response.StatusCode)
         });
 
         return context.Response.WriteAsync(result);
