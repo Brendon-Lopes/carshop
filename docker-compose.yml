@@ -1,19 +1,19 @@
 version: '3.9'
 
 services:
-  # api:
-  #   container_name: api
-  #   build:
-  #     context: ./server/VerzelCars.API
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - 5000:80
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=Development
-  #     - ConnectionStrings__DefaultConnection=Server=db,1433;Database=Carshop;User Id=sa;Password=Password123;
-  #   depends_on:
-  #     db:
-  #       condition: service_healthy
+  api:
+    container_name: api
+    build:
+      context: ./server/
+      dockerfile: Dockerfile
+    ports:
+      - 5000:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=db,1433;Database=Carshop;User Id=sa;Password=Password123;
+    depends_on:
+      db:
+        condition: service_healthy
 
   db:
     container_name: db
