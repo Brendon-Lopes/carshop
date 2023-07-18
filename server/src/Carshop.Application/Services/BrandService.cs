@@ -47,4 +47,12 @@ public class BrandService : IBrandService
 
         return created;
     }
+
+    public async Task CheckIfBrandExists(Guid brandId)
+    {
+        var brand = await _brandRepository.GetById(brandId);
+
+        if (brand is null)
+            throw new CustomException($"Brand with ID {brandId} does not exist", HttpStatusCode.BadRequest);
+    }
 }
