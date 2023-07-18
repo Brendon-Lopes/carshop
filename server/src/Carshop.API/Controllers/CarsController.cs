@@ -44,4 +44,12 @@ public class CarsController : ControllerBase
 
         return CreatedAtAction(null, new {id = car.Id}, car);
     }
+
+    [HttpPut("{id}", Name = "UpdateCar")]
+    public async Task<IActionResult> Update(Guid id, CarDTO carDto)
+    {
+        var car = await _carService.Update(id, carDto);
+
+        return Ok(car);
+    }
 }
