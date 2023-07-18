@@ -19,6 +19,6 @@ public class CarDTO
     [Required, Range(0.01, double.MaxValue, ErrorMessage = "Car 'Price' must be bigger than 0")]
     public decimal Price { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Car 'BrandId' is required")]
     public Guid BrandId { get; set; }
 }
