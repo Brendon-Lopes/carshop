@@ -3,6 +3,7 @@ using Carshop.Domain.Interfaces;
 using Carshop.Infrastructure.Authentication;
 using Carshop.Infrastructure.Context;
 using Carshop.Infrastructure.Repositories;
+using Carshop.Infrastructure.Seeders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +26,8 @@ public static class DependencyInjection
         services.AddSingleton<IPasswordHandler, PasswordHandler>();
 
         services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+
+        services.AddHostedService<DatabaseSeeder>();
 
         return services;
     }
