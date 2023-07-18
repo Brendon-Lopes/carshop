@@ -14,4 +14,6 @@ public interface ICarService
     Task<CarResponse> Save(CarDTO car);
 
     Task<CarResponse> Update(Guid id, CarDTO car);
+
+    Task Delete(Guid id);
 }

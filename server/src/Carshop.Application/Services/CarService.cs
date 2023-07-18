@@ -81,4 +81,14 @@ public class CarService : ICarService
 
         return _mapper.Map<CarResponse>(updatedCar);
     }
+
+    public async Task Delete(Guid id)
+    {
+        var carEntity = await _carRepository.GetById(id);
+
+        if (carEntity is null)
+            throw new CustomException($"Car with ID {id} does not exist", HttpStatusCode.BadRequest);
+
+        await _carRepository.Delete(carEntity);
+    }
 }
