@@ -1,5 +1,7 @@
+using System.Net;
 using AutoMapper;
 using Carshop.Application.DTOs;
+using Carshop.Application.Exceptions;
 using Carshop.Application.Interfaces.Brand;
 using Carshop.Application.Interfaces.Car;
 using Carshop.Domain.Interfaces;
@@ -62,5 +64,21 @@ public class CarService : ICarService
         var savedCar = await _carRepository.Save(carEntity);
 
         return _mapper.Map<CarResponse>(savedCar);
+    }
+
+    public async Task<CarResponse> Update(Guid id, CarDTO carDto)
+    {
+        var carEntity = await _carRepository.GetById(id);
+
+        if (carEntity is null)
+            throw new CustomException($"Car with ID {id} does not exist", HttpStatusCode.BadRequest);
+
+        await _brandService.CheckIfBrandExists(carDto.BrandId);
+
+        _mapper.Map(carDto, carEntity);
+
+        var updatedCar = await _carRepository.Update(carEntity);
+
+        return _mapper.Map<CarResponse>(updatedCar);
     }
 }

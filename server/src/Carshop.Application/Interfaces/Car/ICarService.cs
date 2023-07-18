@@ -12,4 +12,6 @@ public interface ICarService
         bool decrescentOrder = true);
 
     Task<CarResponse> Save(CarDTO car);
+
+    Task<CarResponse> Update(Guid id, CarDTO car);
 }
