@@ -52,4 +52,12 @@ public class CarsController : ControllerBase
 
         return Ok(car);
     }
+
+    [HttpDelete("{id}", Name = "DeleteCar")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        await _carService.Delete(id);
+
+        return NoContent();
+    }
 }
