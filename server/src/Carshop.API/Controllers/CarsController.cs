@@ -18,6 +18,25 @@ public class CarsController : ControllerBase
         _carService = carService;
     }
 
+    [AllowAnonymous]
+    [HttpGet(Name = "GetAllCarsFilteredAndPaginated")]
+    public async Task<IActionResult> GetAllCarsFilteredAndPaginated(
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 9,
+        [FromQuery] string? name = "",
+        [FromQuery] string? brandName = "",
+        [FromQuery] bool decrescentOrder = true)
+    {
+        var cars = await _carService.GetAllCarsFilteredAndPaginated(
+            page,
+            pageSize,
+            name!,
+            brandName!,
+            decrescentOrder);
+
+        return Ok(cars);
+    }
+
     [HttpPost(Name = "SaveCar")]
     public async Task<IActionResult> Save(CarDTO carDto)
     {
