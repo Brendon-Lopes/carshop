@@ -9,5 +9,11 @@ public class CarMapper : Profile
     public CarMapper()
     {
         CreateMap<CarDTO, Car>().ReverseMap();
+
+        CreateMap<Car, CarResponse>()
+            .ForMember(dest => dest.BrandName, opt =>
+            {
+                opt.MapFrom(src => src.Brand.Name);
+            });
     }
 }
