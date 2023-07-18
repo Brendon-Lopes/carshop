@@ -1,7 +1,6 @@
 using AutoMapper;
 using Carshop.Application.DTOs;
 using Carshop.Application.Interfaces.Brand;
-using Carshop.Domain.Models;
 using Carshop.Infrastructure.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,26 +13,28 @@ namespace Carshop.API.Controllers;
 public class BrandsController : ControllerBase
 {
     private readonly IBrandService _brandService;
-    private readonly IMapper _mapper;
 
-    public BrandsController(IBrandService brandService, IMapper mapper)
+    public BrandsController(IBrandService brandService)
     {
         _brandService = brandService;
-        _mapper = mapper;
     }
 
-    [HttpGet(Name = "GetBrands")]
+    [HttpGet(Name = "GetAllBrands")]
     [AllowAnonymous]
-    public async Task<IEnumerable<Brand>> Get()
+    public async Task<IActionResult> GetAll()
     {
-        return await _brandService.GetAll();
+        var brands = await _brandService.GetAll();
+
+        return Ok(brands);
     }
 
     [HttpGet("{id}", Name = "GetBrandById")]
     [AllowAnonymous]
-    public async Task<Brand> GetById(Guid id)
+    public async Task<IActionResult> GetById(Guid id)
     {
-        return await _brandService.GetById(id);
+        var brand = await _brandService.GetById(id);
+
+        return Ok(brand);
     }
 
     [HttpPost(Name = "SaveBrand")]
@@ -41,8 +42,6 @@ public class BrandsController : ControllerBase
     {
         var brand = await _brandService.Save(brandDto);
 
-        var response = _mapper.Map<BrandResponse>(brand);
-
-        return CreatedAtAction(nameof(GetById), new {id = brand.Id}, response);
+        return CreatedAtAction(nameof(GetById), new {id = brand.Id}, brand);
     }
 }

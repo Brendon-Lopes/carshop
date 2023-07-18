@@ -6,9 +6,9 @@ public interface IBrandService
 {
     Task<Domain.Models.Brand> GetById(Guid id);
 
-    Task<IEnumerable<Domain.Models.Brand>> GetAll();
+    Task<IEnumerable<BrandResponse>> GetAll();
 
-    Task<Domain.Models.Brand> Save(BrandDTO brand);
+    Task<BrandResponse> Save(BrandDTO brand);
 
     Task CheckIfBrandExists(Guid brandId);
 }

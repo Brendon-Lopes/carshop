@@ -29,12 +29,16 @@ public class BrandService : IBrandService
         return brand;
     }
 
-    public async Task<IEnumerable<Brand>> GetAll()
+    public async Task<IEnumerable<BrandResponse>> GetAll()
     {
-        return await _brandRepository.GetAll();
+        var brands = await _brandRepository.GetAll();
+
+        var brandsResponse = _mapper.Map<IEnumerable<BrandResponse>>(brands);
+
+        return brandsResponse;
     }
 
-    public async Task<Brand> Save(BrandDTO brand)
+    public async Task<BrandResponse> Save(BrandDTO brand)
     {
         var newBrand = _mapper.Map<Brand>(brand);
 
@@ -45,7 +49,9 @@ public class BrandService : IBrandService
 
         var created = await _brandRepository.Save(newBrand);
 
-        return created;
+        var brandResponse = _mapper.Map<BrandResponse>(created);
+
+        return brandResponse;
     }
 
     public async Task CheckIfBrandExists(Guid brandId)
