@@ -19,14 +19,16 @@ public class BrandService : IBrandService
         _mapper = mapper;
     }
 
-    public async Task<Brand> GetById(Guid id)
+    public async Task<BrandResponse> GetById(Guid id)
     {
         var brand = await _brandRepository.GetById(id);
 
         if (brand is null)
             throw new CustomException("Brand not found", HttpStatusCode.NotFound);
 
-        return brand;
+        var brandResponse = _mapper.Map<BrandResponse>(brand);
+
+        return brandResponse;
     }
 
     public async Task<IEnumerable<BrandResponse>> GetAll()

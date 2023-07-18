@@ -4,7 +4,7 @@ namespace Carshop.Application.Interfaces.Brand;
 
 public interface IBrandService
 {
-    Task<Domain.Models.Brand> GetById(Guid id);
+    Task<BrandResponse> GetById(Guid id);
 
     Task<IEnumerable<BrandResponse>> GetAll();
 
