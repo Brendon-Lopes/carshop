@@ -1,4 +1,4 @@
-export default interface ILoginResponse {
+export interface ILoginResponse {
   id: string;
   email: string;
   firstName: string;

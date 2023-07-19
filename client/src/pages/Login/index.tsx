@@ -1,15 +1,15 @@
-import { Navbar } from "@components/Navbar";
+import { Navbar } from "src/components";
 import { useForm } from "react-hook-form";
-import * as loginService from "@services/login.service";
+import * as loginService from "src/services/login.service";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import {
   type ILoginFormData,
   loginResolver,
-} from "@validations/login.validation";
+} from "src/validations/login.validation";
 
-export function Login() {
+export const Login = () => {
   const navigate = useNavigate();
 
   const [invalidCredentials, setInvalidCredentials] = useState(false);
@@ -111,4 +111,4 @@ export function Login() {
       </section>
     </div>
   );
-}
+};

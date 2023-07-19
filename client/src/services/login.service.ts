@@ -1,4 +1,4 @@
-import ILoginResponse from "interfaces/ILoginResponse.interface";
+import { ILoginResponse } from "src/interfaces";
 import { api } from "../providers/api";
 
 export const login = async (email: string, password: string) => {
