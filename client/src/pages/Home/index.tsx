@@ -61,8 +61,6 @@ export const Home = () => {
     void carsService
       .deleteCar(carId, token)
       .then((res) => {
-        console.log(res);
-
         if (res === false) {
           alert("Não foi possível deletar o carro");
         }

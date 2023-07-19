@@ -46,8 +46,6 @@ export const createCar = async (car: ICreateCarFormData, token: string) => {
     imageUrl: car.imageUrl,
   };
 
-  console.log({ payload });
-
   try {
     const response: { data: ICar } = await api.post("/cars", payload, {
       headers: {

@@ -51,7 +51,6 @@ export function RegisterCarForm() {
   };
 
   const onEdit = (data: ICreateCarFormData) => {
-    console.log("edit");
     const token = cookies.token as string;
 
     void carService.editCar(state.car.id, data, token).then((res) => {
