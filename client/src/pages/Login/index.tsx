@@ -31,13 +31,11 @@ export function Login() {
         return;
       }
 
-      if (res !== false) {
-        setInvalidCredentials(false);
-        setCookies("token", res.token, { path: "/" });
-        setCookies("userFirstName", res.firstName, { path: "/" });
-        setCookies("role", res.role, { path: "/" });
-        navigate("/");
-      }
+      setInvalidCredentials(false);
+      setCookies("token", res.token, { path: "/" });
+      setCookies("userFirstName", res.firstName, { path: "/" });
+      setCookies("role", res.role, { path: "/" });
+      navigate("/");
     });
   };
 
