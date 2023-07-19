@@ -1,13 +1,13 @@
 import { Navbar } from "@components/Navbar";
 import { useForm } from "react-hook-form";
-import {
-  type ILoginFormData,
-  loginResolver,
-} from "@validations/login.validation";
 import * as loginService from "@services/login.service";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import {
+  type ILoginFormData,
+  loginResolver,
+} from "@validations/login.validation";
 
 export function Login() {
   const navigate = useNavigate();
