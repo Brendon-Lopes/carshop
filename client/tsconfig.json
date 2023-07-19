@@ -26,7 +26,8 @@
       "@pages/*": ["pages/*"],
       "@utils/*": ["utils/*"],
       "@services/*": ["services/*"],
-      "@validations/*": ["validations/*"]
+      "@validations/*": ["validations/*"],
+      "@interfaces/*": ["interfaces/*"]
     }
   },
   "include": ["src"],
