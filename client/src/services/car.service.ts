@@ -85,6 +85,7 @@ export const editCar = async (
     model: car.model,
     year: car.year,
     price: car.price,
+    brandId: car.brand,
     imageUrl: car.imageUrl,
   };
 
