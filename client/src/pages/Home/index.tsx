@@ -5,6 +5,7 @@ import * as carsService from "src/services/car.service";
 import * as brandsService from "src/services/brand.service";
 import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import { useCookies } from "react-cookie";
+import { UserRoles } from "src/enums";
 
 export const Home = () => {
   const [cars, setCars] = useState<ICar[]>([]);
@@ -52,7 +53,7 @@ export const Home = () => {
   const onCarDelete = (carId: string) => {
     const token = cookies.token as string;
 
-    if (cookies.role !== "admin") {
+    if (cookies.role !== UserRoles.Admin) {
       alert("Você não tem permissão para deletar um carro");
       return;
     }

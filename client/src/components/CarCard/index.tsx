@@ -3,6 +3,7 @@ import { formatPrice } from "src/utils";
 import { useCookies } from "react-cookie";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { UserRoles } from "src/enums";
 
 interface IProps {
   car: ICar;
@@ -20,7 +21,7 @@ export const CarCard = ({ car, onCarDelete }: IProps) => {
 
   return (
     <div className="w-full p-4 relative">
-      {cookies.role === "admin" && (
+      {cookies.role === UserRoles.Admin && (
         <>
           <BsFillPencilFill
             onClick={onCarEdit}
