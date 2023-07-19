@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { RiAdminLine } from "react-icons/ri";
 import { useCookies } from "react-cookie";
 import { BiLogOutCircle } from "react-icons/bi";
+import { UserRoles } from "src/enums";
 
 export const Navbar = () => {
   const navigate = useNavigate();
@@ -20,7 +21,9 @@ export const Navbar = () => {
   };
 
   const onRegisterClick = () => {
-    navigate("/register-car", { state: { editMode: false } });
+    navigate("/register-car", {
+      state: { editMode: false, car: null },
+    });
   };
 
   const renderLoggedInContent = () => {
@@ -28,7 +31,7 @@ export const Navbar = () => {
       <div className="flex items-center justify-between gap-8">
         <p className="mr-4">Olá, {cookies.userFirstName}.</p>
 
-        {cookies.role === "admin" && (
+        {cookies.role === UserRoles.Admin && (
           <button
             onClick={onRegisterClick}
             className="hover:text-black transition-all flex items-center gap-2 text-lg leading-relaxed"
