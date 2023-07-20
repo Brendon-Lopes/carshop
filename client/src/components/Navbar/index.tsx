@@ -3,7 +3,7 @@ import { RiAdminLine } from "react-icons/ri";
 import { useCookies } from "react-cookie";
 import { BiLogOutCircle } from "react-icons/bi";
 import { UserRoles } from "src/enums";
-import { Modal } from "src/components";
+import { ConfirmationModal } from "src/components";
 import { useState } from "react";
 
 export const Navbar = () => {
@@ -82,57 +82,15 @@ export const Navbar = () => {
         </div>
       </nav>
 
-      <Modal isOpen={isConfirmationModalOpen}>
+      <ConfirmationModal
+        isOpen={isConfirmationModalOpen}
+        onConfirmation={onLogout}
+        onCancel={() => setIsConfirmationModalOpen(false)}
+      >
         <h1 className="block mb-2 font-medium text-gray-900">
           Tem certeza que deseja sair?
         </h1>
-
-        <section className="mt-6 flex gap-4">
-          <button
-            type="button"
-            className="
-              text-white
-              bg-blue-700
-              hover:bg-blue-800
-              focus:ring-4
-              focus:outline-none
-              focus:ring-blue-300
-              font-medium
-              rounded-lg
-              text-sm
-              px-5
-              py-2.5
-              text-center
-              flex-grow
-            "
-            onClick={onLogout}
-          >
-            Confirmar
-          </button>
-
-          <button
-            className="
-              text-white
-              bg-red-700
-              hover:bg-red-800
-              focus:ring-4
-              focus:outline-none
-              focus:ring-red-300
-              font-medium
-              rounded-lg
-              text-sm
-              px-5
-              py-2.5
-              text-center
-              flex-grow
-            "
-            type="button"
-            onClick={() => setIsConfirmationModalOpen(false)}
-          >
-            Cancelar
-          </button>
-        </section>
-      </Modal>
+      </ConfirmationModal>
     </>
   );
 };

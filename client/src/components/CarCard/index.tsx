@@ -4,7 +4,7 @@ import { useCookies } from "react-cookie";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { UserRoles } from "src/enums";
-import { Modal } from "src/components";
+import { ConfirmationModal } from "src/components";
 import { useState } from "react";
 
 interface IProps {
@@ -58,61 +58,17 @@ export const CarCard = ({ car, onCarDelete }: IProps) => {
         </div>
       </div>
 
-      <Modal isOpen={isConfirmationModalOpen}>
+      <ConfirmationModal
+        isOpen={isConfirmationModalOpen}
+        onConfirmation={() => onCarDelete(car.id)}
+        onCancel={() => setIsConfirmationModalOpen(false)}
+      >
         <h1 className="block mb-2 font-medium text-gray-900">
           Tem certeza que deseja excluir o carro{" "}
           <span className="text-red-600">{car.name}</span>? Essa ação não poderá
           ser desfeita.
         </h1>
-
-        <section className="mt-6 flex gap-4">
-          <button
-            type="button"
-            className="
-              text-white
-              bg-blue-700
-              hover:bg-blue-800
-              focus:ring-4
-              focus:outline-none
-              focus:ring-blue-300
-              font-medium
-              rounded-lg
-              text-sm
-              px-5
-              py-2.5
-              text-center
-              flex-grow
-            "
-            onClick={() => {
-              onCarDelete(car.id);
-            }}
-          >
-            Confirmar
-          </button>
-
-          <button
-            className="
-              text-white
-              bg-red-700
-              hover:bg-red-800
-              focus:ring-4
-              focus:outline-none
-              focus:ring-red-300
-              font-medium
-              rounded-lg
-              text-sm
-              px-5
-              py-2.5
-              text-center
-              flex-grow
-            "
-            type="button"
-            onClick={() => setIsConfirmationModalOpen(false)}
-          >
-            Cancelar
-          </button>
-        </section>
-      </Modal>
+      </ConfirmationModal>
     </>
   );
 };

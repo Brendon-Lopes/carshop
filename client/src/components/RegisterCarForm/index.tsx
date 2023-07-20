@@ -5,7 +5,7 @@ import * as brandService from "src/services/brand.service";
 import * as carService from "src/services/car.service";
 import { useCookies } from "react-cookie";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Modal } from "src/components";
+import { ConfirmationModal, Modal } from "src/components";
 import {
   createCarResolver,
   type ICreateCarFormData,
@@ -294,63 +294,21 @@ export const RegisterCarForm = () => {
         </button>
       </form>
 
-      <Modal isOpen={isConfirmationModalOpen}>
+      <ConfirmationModal
+        isOpen={isConfirmationModalOpen}
+        onConfirmation={() => {
+          setIsConfirmationModalOpen(false);
+          navigate("/");
+        }}
+        onCancel={() => setIsConfirmationModalOpen(false)}
+        cancelText={`Voltar para ${editMode ? "a edição" : "o cadastro"}`}
+      >
         <h1 className="block mb-2 font-medium text-gray-900 text-center">
           {`Tem certeza que deseja cancelar ${
             editMode ? "a edição" : "o cadastro"
           }?`}
         </h1>
-
-        <section className="mt-6 flex">
-          <button
-            type="button"
-            className="
-              text-white
-              bg-blue-700
-              hover:bg-blue-800
-              focus:ring-4
-              focus:outline-none
-              focus:ring-blue-300
-              font-medium
-              rounded-lg
-              text-sm
-              w-full
-              sm:w-auto
-              px-5
-              py-2.5
-              text-center
-              mr-2
-            "
-            onClick={() => {
-              setIsConfirmationModalOpen(false);
-              navigate("/");
-            }}
-          >
-            Confirmar
-          </button>
-
-          <button
-            className="
-              text-white
-              bg-red-700
-              hover:bg-blredue-800
-              focus:ring-4
-              focus:outline-none
-              focus:ring-red-300
-              font-medium
-              rounded-lg
-              text-sm w-full
-              sm:w-auto px-5
-              py-2.5
-              text-center
-            "
-            type="button"
-            onClick={() => setIsConfirmationModalOpen(false)}
-          >
-            {`Voltar ${editMode ? "para a edição" : "para o cadastro"}`}
-          </button>
-        </section>
-      </Modal>
+      </ConfirmationModal>
 
       <Modal isOpen={isModalOpen}>
         <form onSubmit={handleCreateBrand}>
