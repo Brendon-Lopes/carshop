@@ -28,9 +28,23 @@ export const SearchBar = ({ onSearch }: IProps) => {
             value={searchValue}
             onChange={onInputChange}
           />
-        </form>
 
-        <BsSearch className="absolute right-2 text-xl text-gray-600" />
+          <button
+            className="
+              absolute
+              right-0
+              px-3 h-full
+              text-gray-400
+              hover:text-gray-800
+              transition
+              duration-200
+            "
+            data-testid="submit-btn"
+            type="submit"
+          >
+            <BsSearch className="text-xl" />
+          </button>
+        </form>
       </div>
     </div>
   );
