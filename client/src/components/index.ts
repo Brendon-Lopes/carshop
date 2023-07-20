@@ -1,8 +1,7 @@
-import { Navbar } from "./Navbar";
-import { SearchBar } from "./SearchBar";
-import { CarCard } from "./CarCard";
-import { SideBar } from "./SideBar";
-import { RegisterCarForm } from "./RegisterCarForm";
-import { Modal } from "./Modal";
-
-export { Navbar, SearchBar, CarCard, SideBar, RegisterCarForm, Modal };
+export { Navbar } from "./Navbar";
+export { SearchBar } from "./SearchBar";
+export { CarCard } from "./CarCard";
+export { SideBar } from "./SideBar";
+export { RegisterCarForm } from "./RegisterCarForm";
+export { Modal } from "./Modal";
+export { ConfirmationModal } from "./Modal/ConfirmationModal/ConfirmationModal";
