@@ -10,6 +10,7 @@ import {
   createCarResolver,
   type ICreateCarFormData,
 } from "src/validations/car.validation";
+import { HttpStatusCode } from "axios";
 
 export const RegisterCarForm = () => {
   const location = useLocation();
@@ -85,8 +86,8 @@ export const RegisterCarForm = () => {
     void brandService
       .createBrand(newBrandName, cookies.token as string)
       .then((res) => {
-        if (res === false) {
-          alert("Erro ao criar marca!");
+        if (res === HttpStatusCode.Conflict) {
+          alert("Já existe uma marca com esse nome!");
           return;
         }
 
@@ -342,7 +343,7 @@ export const RegisterCarForm = () => {
             </p>
           )}
 
-          <section className="mt-6">
+          <section className="mt-6 flex gap-4">
             <button
               type="submit"
               className="
@@ -355,12 +356,10 @@ export const RegisterCarForm = () => {
               font-medium
               rounded-lg
               text-sm
-              w-full
-              sm:w-auto
               px-5
               py-2.5
               text-center
-              mr-2
+              flex-grow
             "
             >
               Criar marca
@@ -376,10 +375,11 @@ export const RegisterCarForm = () => {
                 focus:ring-red-300
                 font-medium
                 rounded-lg
-                text-sm w-full
-                sm:w-auto px-5
+                text-sm
+                px-5
                 py-2.5
                 text-center
+                flex-grow
               "
               type="button"
               onClick={() => {

@@ -1,3 +1,4 @@
+import { HttpStatusCode } from "axios";
 import { api } from "../providers/api";
 import { IBrand } from "src/interfaces";
 
@@ -26,8 +27,13 @@ export const createBrand = async (name: string, token: string) => {
     );
 
     return response.data;
-  } catch (err) {
+  } catch (err: any) {
     console.log(err);
-    return false;
+
+    if (err?.response?.status === HttpStatusCode.Conflict) {
+      return HttpStatusCode.Conflict;
+    }
+
+    throw err;
   }
 };
