@@ -20,16 +20,19 @@ export const Modal = ({ children, isOpen }: IProps) => {
         -translate-x-1/2
         -translate-y-1/2
         rounded-lg
-        min-w-[30rem]
+        min-w-[20rem]
+        max-w-[35rem]
       "
       overlayClassName="
         bg-black
         bg-opacity-50
-        absolute top-0
+        fixed
+        top-0
         left-0
         w-full
         h-full
       "
+      ariaHideApp={false}
     >
       {children}
     </ReactModal>
