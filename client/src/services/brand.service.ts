@@ -11,11 +11,19 @@ export const getAllBrands = async () => {
   }
 };
 
-export const createBrand = async (name: string) => {
+export const createBrand = async (name: string, token: string) => {
   try {
-    const response: { data: IBrand } = await api.post("/brands", {
-      name,
-    });
+    const response: { data: IBrand } = await api.post(
+      "/brands",
+      {
+        name,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     return response.data;
   } catch (err) {
