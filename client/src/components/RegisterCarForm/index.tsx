@@ -5,7 +5,7 @@ import * as brandService from "src/services/brand.service";
 import * as carService from "src/services/car.service";
 import { useCookies } from "react-cookie";
 import { useNavigate, useLocation } from "react-router-dom";
-import ReactModal from "react-modal";
+import { Modal } from "src/components";
 import {
   createCarResolver,
   type ICreateCarFormData,
@@ -20,6 +20,8 @@ export const RegisterCarForm = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [newBrandName, setNewBrandName] = useState<string>("");
   const [newBrandLengthError, setNewBrandLengthError] =
+    useState<boolean>(false);
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] =
     useState<boolean>(false);
 
   const [selectedBrand, setSelectedBrand] = useState<string>(
@@ -94,6 +96,10 @@ export const RegisterCarForm = () => {
         setNewBrandLengthError(false);
         setTriggerReloadBrands((prev) => !prev);
       });
+  };
+
+  const handleCancel = () => {
+    setIsConfirmationModalOpen(true);
   };
 
   useEffect(() => {
@@ -245,37 +251,108 @@ export const RegisterCarForm = () => {
 
         <button
           type="submit"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          className="
+            text-white
+            bg-blue-700
+            hover:bg-blue-800
+            focus:ring-4
+            focus:outline-none
+            focus:ring-blue-300
+            font-medium
+            rounded-lg
+            text-sm
+            w-full
+            sm:w-auto
+            px-5
+            py-2.5
+            text-center
+            mr-2
+          "
         >
           {editMode ? "Editar" : "Cadastrar"}
         </button>
 
         <button
           type="button"
-          className="ml-4 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-          onClick={() => navigate("/")}
+          className="
+            text-white
+            bg-red-700
+            hover:bg-blredue-800
+            focus:ring-4
+            focus:outline-none
+            focus:ring-red-300
+            font-medium
+            rounded-lg
+            text-sm w-full
+            sm:w-auto px-5
+            py-2.5
+            text-center
+          "
+          onClick={handleCancel}
         >
           Cancelar
         </button>
       </form>
 
-      <ReactModal
-        isOpen={isModalOpen}
-        className="
-          px-10
-          py-7
-          bg-slate-100
-          absolute
-          top-1/2
-          left-1/2
-          transform
-          -translate-x-1/2
-          -translate-y-1/2
-          rounded-lg
-          min-w-[30rem]
-        "
-        overlayClassName="bg-black bg-opacity-50 absolute top-0 left-0 w-full h-full"
-      >
+      <Modal isOpen={isConfirmationModalOpen}>
+        <h1 className="block mb-2 font-medium text-gray-900 text-center">
+          {`Tem certeza que deseja cancelar ${
+            editMode ? "a edição" : "o cadastro"
+          }?`}
+        </h1>
+
+        <section className="mt-6 flex">
+          <button
+            type="button"
+            className="
+              text-white
+              bg-blue-700
+              hover:bg-blue-800
+              focus:ring-4
+              focus:outline-none
+              focus:ring-blue-300
+              font-medium
+              rounded-lg
+              text-sm
+              w-full
+              sm:w-auto
+              px-5
+              py-2.5
+              text-center
+              mr-2
+            "
+            onClick={() => {
+              setIsConfirmationModalOpen(false);
+              navigate("/");
+            }}
+          >
+            Confirmar
+          </button>
+
+          <button
+            className="
+              text-white
+              bg-red-700
+              hover:bg-blredue-800
+              focus:ring-4
+              focus:outline-none
+              focus:ring-red-300
+              font-medium
+              rounded-lg
+              text-sm w-full
+              sm:w-auto px-5
+              py-2.5
+              text-center
+            "
+            type="button"
+            onClick={() => setIsConfirmationModalOpen(false)}
+          >
+            {`Voltar ${editMode ? "para a edição" : "para o cadastro"}`}
+          </button>
+        </section>
+      </Modal>
+
+      <Modal isOpen={isModalOpen}>
         <form onSubmit={handleCreateBrand}>
           <h2 className="block mb-2 text-sm font-medium text-gray-900">
             Criar nova marca
@@ -332,7 +409,20 @@ export const RegisterCarForm = () => {
             </button>
 
             <button
-              className="text-white bg-red-700 hover:bg-blredue-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+              className="
+                text-white
+                bg-red-700
+                hover:bg-blredue-800
+                focus:ring-4
+                focus:outline-none
+                focus:ring-red-300
+                font-medium
+                rounded-lg
+                text-sm w-full
+                sm:w-auto px-5
+                py-2.5
+                text-center
+              "
               type="button"
               onClick={() => {
                 setIsModalOpen(false);
@@ -344,7 +434,7 @@ export const RegisterCarForm = () => {
             </button>
           </section>
         </form>
-      </ReactModal>
+      </Modal>
     </>
   );
 };
