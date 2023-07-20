@@ -13,6 +13,8 @@ const createCarSchema = yup.object({
   model: yup.string().required("O modelo é obrigatório"),
   year: yup
     .number()
+    .min(1900, "O ano deve ser maior ou igual a 1900")
+    .max(2100, "Ano inválido")
     .typeError("O ano deve ser um número")
     .required("O ano é obrigatório")
     .test("len", "O ano deve ter 4 dígitos", (val) => {
@@ -31,7 +33,7 @@ const createCarSchema = yup.object({
       if (val !== undefined) return val > 0;
       return false;
     }),
-  imageUrl: yup.string().required("A imagem é obrigatória"),
+  imageUrl: yup.string().url("URL inválida").required("A imagem é obrigatória"),
 });
 
 export const createCarResolver = yupResolver(createCarSchema);
