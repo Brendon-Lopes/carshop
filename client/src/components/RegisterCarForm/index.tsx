@@ -54,7 +54,6 @@ export const RegisterCarForm = () => {
     void carService.createCar(data, token).then((res) => {
       if (res === false) {
         toast.error("Ocorreu um erro ao tentar criar o carro.");
-
         return;
       }
 
@@ -92,7 +91,6 @@ export const RegisterCarForm = () => {
       .then((res) => {
         if (res === HttpStatusCode.Conflict) {
           toast.error("Esta marca já está cadastrada.");
-
           return;
         }
 
@@ -256,47 +254,11 @@ export const RegisterCarForm = () => {
           )}
         </div>
 
-        <button
-          type="submit"
-          className="
-            text-white
-            bg-blue-700
-            hover:bg-blue-800
-            focus:ring-4
-            focus:outline-none
-            focus:ring-blue-300
-            font-medium
-            rounded-lg
-            text-sm
-            w-full
-            sm:w-auto
-            px-5
-            py-2.5
-            text-center
-            mr-2
-          "
-        >
+        <button className="success-btn mr-4" type="submit">
           {editMode ? "Editar" : "Cadastrar"}
         </button>
 
-        <button
-          type="button"
-          className="
-            text-white
-            bg-red-700
-            hover:bg-blredue-800
-            focus:ring-4
-            focus:outline-none
-            focus:ring-red-300
-            font-medium
-            rounded-lg
-            text-sm w-full
-            sm:w-auto px-5
-            py-2.5
-            text-center
-          "
-          onClick={handleCancel}
-        >
+        <button className="danger-btn" type="button" onClick={handleCancel}>
           Cancelar
         </button>
       </form>
@@ -310,7 +272,7 @@ export const RegisterCarForm = () => {
         onCancel={() => setIsConfirmationModalOpen(false)}
         cancelText={`Voltar para ${editMode ? "a edição" : "o cadastro"}`}
       >
-        <h1 className="block mb-2 font-medium text-gray-900 text-center">
+        <h1 className="block mb-8 text-lg font-medium text-gray-900 text-center">
           {`Tem certeza que deseja cancelar ${
             editMode ? "a edição" : "o cadastro"
           }?`}
@@ -325,18 +287,18 @@ export const RegisterCarForm = () => {
 
           <input
             className="
-            bg-gray-50
-            border
-            border-gray-300
-            text-gray-900
-            text-sm rounded-lg
-            focus:ring-blue-500
-            focus:border-blue-500
-            block
-            w-full
-            p-2.5
-            mb-2
-          "
+              bg-gray-50
+              border
+              border-gray-300
+              text-gray-900
+              text-sm rounded-lg
+              focus:ring-blue-500
+              focus:border-blue-500
+              block
+              w-full
+              p-2.5
+              mb-2
+            "
             placeholder="Nome da marca"
             type="text"
             value={newBrandName}
@@ -350,43 +312,12 @@ export const RegisterCarForm = () => {
           )}
 
           <section className="mt-6 flex gap-4">
-            <button
-              type="submit"
-              className="
-              text-white
-              bg-blue-700
-              hover:bg-blue-800
-              focus:ring-4
-              focus:outline-none
-              focus:ring-blue-300
-              font-medium
-              rounded-lg
-              text-sm
-              px-5
-              py-2.5
-              text-center
-              flex-grow
-            "
-            >
+            <button className="success-btn" type="submit">
               Criar marca
             </button>
 
             <button
-              className="
-                text-white
-                bg-red-700
-                hover:bg-blredue-800
-                focus:ring-4
-                focus:outline-none
-                focus:ring-red-300
-                font-medium
-                rounded-lg
-                text-sm
-                px-5
-                py-2.5
-                text-center
-                flex-grow
-              "
+              className="danger-btn"
               type="button"
               onClick={() => {
                 setIsModalOpen(false);

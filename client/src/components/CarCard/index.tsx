@@ -31,9 +31,11 @@ export const CarCard = ({ car, onCarDelete }: IProps) => {
           <>
             <BsFillPencilFill
               onClick={onCarEdit}
+              data-testid="edit-button"
               className="absolute text-2xl text-gray-900 bottom-9 right-20 hover:cursor-pointer hover:scale-125 transition-all"
             />
             <BsFillTrashFill
+              data-testid="delete-button"
               className="absolute text-2xl text-red-600 bottom-9 right-9 hover:cursor-pointer hover:scale-125 transition-all"
               onClick={() => setIsConfirmationModalOpen(true)}
             />

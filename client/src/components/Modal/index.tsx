@@ -20,7 +20,7 @@ export const Modal = ({ children, isOpen }: IProps) => {
         -translate-x-1/2
         -translate-y-1/2
         rounded-lg
-        min-w-[20rem]
+        md:min-w-[35rem]
         max-w-[35rem]
       "
       overlayClassName="
