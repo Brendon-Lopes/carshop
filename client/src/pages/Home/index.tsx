@@ -6,6 +6,7 @@ import * as brandsService from "src/services/brand.service";
 import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import { useCookies } from "react-cookie";
 import { UserRoles } from "src/enums";
+import { toast } from "react-toastify";
 
 export const Home = () => {
   const [cars, setCars] = useState<ICar[]>([]);
@@ -54,7 +55,8 @@ export const Home = () => {
     const token = cookies.token as string;
 
     if (cookies.role !== UserRoles.Admin) {
-      alert("Você não tem permissão para deletar um carro");
+      toast.error("Você não tem permissão para deletar um carro");
+
       return;
     }
 
@@ -62,11 +64,11 @@ export const Home = () => {
       .deleteCar(carId, token)
       .then((res) => {
         if (res === false) {
-          alert("Não foi possível deletar o carro");
+          toast.error("Não foi possível deletar o carro");
         }
       })
       .then(() => {
-        alert("Carro deletado com sucesso");
+        toast.success("Carro deletado com sucesso!");
 
         void carsService.getAllCars().then((response) => {
           setCars(response.cars);

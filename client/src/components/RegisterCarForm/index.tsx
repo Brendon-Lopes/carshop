@@ -6,6 +6,7 @@ import * as carService from "src/services/car.service";
 import { useCookies } from "react-cookie";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ConfirmationModal, Modal } from "src/components";
+import { toast } from "react-toastify";
 import {
   createCarResolver,
   type ICreateCarFormData,
@@ -52,11 +53,13 @@ export const RegisterCarForm = () => {
 
     void carService.createCar(data, token).then((res) => {
       if (res === false) {
-        alert("Erro ao cadastrar!");
+        toast.error("Ocorreu um erro ao tentar criar o carro.");
+
         return;
       }
 
-      alert("Carro cadastrado com sucesso!");
+      toast.success("Carro cadastrado com sucesso!");
+
       navigate("/");
     });
   };
@@ -66,11 +69,12 @@ export const RegisterCarForm = () => {
 
     void carService.editCar(state.car.id, data, token).then((res) => {
       if (res === false) {
-        alert("Erro ao editar!");
+        toast.error("Ocorreu um erro ao tentar editar o carro.");
         return;
       }
 
-      alert("Carro editado com sucesso!");
+      toast.success("Carro editado com sucesso!");
+
       navigate("/");
     });
   };
@@ -87,11 +91,13 @@ export const RegisterCarForm = () => {
       .createBrand(newBrandName, cookies.token as string)
       .then((res) => {
         if (res === HttpStatusCode.Conflict) {
-          alert("Já existe uma marca com esse nome!");
+          toast.error("Esta marca já está cadastrada.");
+
           return;
         }
 
-        alert("Marca criada com sucesso!");
+        toast.success("Marca cadastrada com sucesso!");
+
         setIsModalOpen(false);
         setNewBrandName("");
         setNewBrandLengthError(false);
