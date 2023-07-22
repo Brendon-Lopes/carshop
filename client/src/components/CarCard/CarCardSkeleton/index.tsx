@@ -1,6 +1,6 @@
 export const CarCardSkeleton = () => {
   return (
-    <div className="w-[325px] p-4 relative">
+    <div className="p-4 relative max-h-[470px] lg:max-h-[420px] min-h-[390px]">
       <div className="h-full bg-gray-300 rounded-lg shadow-md animate-pulse">
         <div className="w-full h-48 rounded-t-lg"></div>
         <div className="p-4">
