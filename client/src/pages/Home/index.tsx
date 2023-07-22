@@ -16,13 +16,17 @@ export const Home = () => {
   const [totalPages, setTotalPages] = useState<number>(1);
   const [selectedBrand, setSelectedBrand] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [refreshTrigger, setRefreshTrigger] = useState<boolean>(false);
 
   const [cookies] = useCookies(["token", "role"]);
 
   const onSearch = (search: string) => {
-    void carsService.getAllCars({ name: search }).then((response) => {
-      if (response) setCars(response.cars);
-    });
+    void carsService
+      .getAllCars({ name: search, brandName: selectedBrand })
+      .then((response) => {
+        if (response) setCars(response.cars);
+      });
   };
 
   const goPreviousPage = () => {
@@ -94,32 +98,30 @@ export const Home = () => {
   }, []);
 
   useEffect(() => {
-    if (selectedBrand !== "") {
-      void carsService
-        .getAllCars({ brandName: selectedBrand })
-        .then((response) => {
-          setCars(response.cars);
-          setCurrentPage(response.currentPage);
-          setTotalPages(response.totalPages);
-        });
-    } else {
-      void carsService.getAllCars().then((response) => {
+    void carsService
+      .getAllCars({ brandName: selectedBrand, name: searchValue })
+      .then((response) => {
         setCars(response.cars);
         setCurrentPage(response.currentPage);
         setTotalPages(response.totalPages);
       });
-    }
-  }, [selectedBrand]);
+  }, [selectedBrand, refreshTrigger]);
 
   return (
     <div>
       <Navbar />
-      <SearchBar onSearch={onSearch} />
+      <SearchBar
+        onSearch={onSearch}
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      />
       <main className="flex max-w-7xl m-auto mt-6">
         <SideBar
+          setSearchValue={setSearchValue}
           brands={brands}
           selectedBrand={selectedBrand}
           setSelectedBrand={setSelectedBrand}
+          setRefreshTrigger={setRefreshTrigger}
         />
 
         <section className="w-full">

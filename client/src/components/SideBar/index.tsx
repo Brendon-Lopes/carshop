@@ -5,12 +5,16 @@ interface IProps {
   brands: IBrand[];
   selectedBrand: string;
   setSelectedBrand: (brandId: string) => void;
+  setSearchValue: (search: string) => void;
+  setRefreshTrigger: (callback: (prevState: boolean) => boolean) => void;
 }
 
 export const SideBar = ({
   brands,
   selectedBrand,
   setSelectedBrand,
+  setSearchValue,
+  setRefreshTrigger,
 }: IProps) => {
   const handleBrandSelection = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedBrand(event.target.id);
@@ -22,6 +26,8 @@ export const SideBar = ({
         <button
           onClick={() => {
             setSelectedBrand("");
+            setSearchValue("");
+            setRefreshTrigger((prevState) => !prevState);
           }}
           className="text-gray-500 mb-4"
         >

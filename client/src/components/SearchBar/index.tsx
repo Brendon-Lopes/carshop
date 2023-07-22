@@ -1,13 +1,16 @@
-import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 
 interface IProps {
   onSearch: (search: string) => void;
+  searchValue: string;
+  setSearchValue: (search: string) => void;
 }
 
-export const SearchBar = ({ onSearch }: IProps) => {
-  const [searchValue, setSearchValue] = useState<string>("");
-
+export const SearchBar = ({
+  onSearch,
+  searchValue,
+  setSearchValue,
+}: IProps) => {
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
   };
