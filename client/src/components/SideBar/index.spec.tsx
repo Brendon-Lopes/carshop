@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { SideBar } from ".";
 import { IBrand } from "src/interfaces";
 
@@ -25,9 +25,8 @@ describe("Sidebar component", () => {
       <SideBar
         brands={brandsMock}
         selectedBrand=""
-        setSelectedBrand={() => {
-          return;
-        }}
+        setSelectedBrand={vi.fn()}
+        resetAllFilters={vi.fn()}
       />
     );
 
@@ -58,9 +57,8 @@ describe("Sidebar component", () => {
       <SideBar
         brands={brandsMock}
         selectedBrand="Audi"
-        setSelectedBrand={() => {
-          return;
-        }}
+        setSelectedBrand={vi.fn()}
+        resetAllFilters={vi.fn()}
       />
     );
 

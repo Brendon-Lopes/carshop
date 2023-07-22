@@ -9,7 +9,9 @@ describe("SearchBar component", () => {
   });
 
   it("should render the search bar", () => {
-    render(<SearchBar onSearch={vi.fn()} />);
+    render(
+      <SearchBar onSearch={vi.fn()} searchValue="" setSearchValue={vi.fn()} />
+    );
 
     expect(screen.getByRole("textbox")).toBeInTheDocument();
   });
@@ -17,7 +19,9 @@ describe("SearchBar component", () => {
   it("should call the onSearch function when the form is submitted", () => {
     const onSearch = vi.fn();
 
-    render(<SearchBar onSearch={onSearch} />);
+    render(
+      <SearchBar onSearch={onSearch} searchValue="" setSearchValue={vi.fn()} />
+    );
 
     screen.getByTestId("submit-btn").click();
 
