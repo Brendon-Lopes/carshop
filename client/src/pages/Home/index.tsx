@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { Navbar, SearchBar, CarCard, SideBar } from "src/components";
+import {
+  Navbar,
+  SearchBar,
+  CarCard,
+  SideBar,
+  ActiveFilter,
+} from "src/components";
 import { type IBrand, type ICar } from "src/interfaces";
 import * as carsService from "src/services/car.service";
 import * as brandsService from "src/services/brand.service";
@@ -18,6 +24,7 @@ export const Home = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchValue, setSearchValue] = useState<string>("");
   const [refreshTrigger, setRefreshTrigger] = useState<boolean>(false);
+  const [activeFilters, setActiveFilters] = useState({ brand: "", search: "" });
 
   const [cookies] = useCookies(["token", "role"]);
 
@@ -27,6 +34,8 @@ export const Home = () => {
       .then((response) => {
         if (response) setCars(response.cars);
       });
+
+    setActiveFilters({ ...activeFilters, search });
   };
 
   const goPreviousPage = () => {
@@ -84,6 +93,25 @@ export const Home = () => {
       });
   };
 
+  const resetAllFilters = () => {
+    setSelectedBrand("");
+    setSearchValue("");
+    setActiveFilters({ brand: "", search: "" });
+    setRefreshTrigger((prevState) => !prevState);
+  };
+
+  const removeBrandfilter = () => {
+    setSelectedBrand("");
+    setRefreshTrigger((prevState) => !prevState);
+    setActiveFilters({ ...activeFilters, brand: "" });
+  };
+
+  const removeSearchFilter = () => {
+    setSearchValue("");
+    setRefreshTrigger((prevState) => !prevState);
+    setActiveFilters({ ...activeFilters, search: "" });
+  };
+
   useEffect(() => {
     void carsService.getAllCars().then((response) => {
       setCars(response.cars);
@@ -105,6 +133,8 @@ export const Home = () => {
         setCurrentPage(response.currentPage);
         setTotalPages(response.totalPages);
       });
+
+    setActiveFilters({ ...activeFilters, brand: selectedBrand });
   }, [selectedBrand, refreshTrigger]);
 
   return (
@@ -117,14 +147,26 @@ export const Home = () => {
       />
       <main className="flex max-w-7xl m-auto mt-6">
         <SideBar
-          setSearchValue={setSearchValue}
           brands={brands}
           selectedBrand={selectedBrand}
           setSelectedBrand={setSelectedBrand}
-          setRefreshTrigger={setRefreshTrigger}
+          resetAllFilters={resetAllFilters}
         />
 
         <section className="w-full">
+          <section className="flex gap-2 ml-4">
+            {activeFilters.brand !== "" && (
+              <button onClick={removeBrandfilter}>
+                <ActiveFilter name={activeFilters.brand} />
+              </button>
+            )}
+
+            {activeFilters.search !== "" && (
+              <button onClick={removeSearchFilter}>
+                <ActiveFilter name={activeFilters.search} />
+              </button>
+            )}
+          </section>
           <section className="grid grid-cols-2 md:grid-cols-3 mb-8 min-h-[70vh]">
             {isLoading ? (
               <>

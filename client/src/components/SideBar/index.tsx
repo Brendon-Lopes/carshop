@@ -5,16 +5,14 @@ interface IProps {
   brands: IBrand[];
   selectedBrand: string;
   setSelectedBrand: (brandId: string) => void;
-  setSearchValue: (search: string) => void;
-  setRefreshTrigger: (callback: (prevState: boolean) => boolean) => void;
+  resetAllFilters: () => void;
 }
 
 export const SideBar = ({
   brands,
   selectedBrand,
   setSelectedBrand,
-  setSearchValue,
-  setRefreshTrigger,
+  resetAllFilters,
 }: IProps) => {
   const handleBrandSelection = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedBrand(event.target.id);
@@ -25,9 +23,7 @@ export const SideBar = ({
       <div className="h-full px-4 py-4 overflow-y-auto">
         <button
           onClick={() => {
-            setSelectedBrand("");
-            setSearchValue("");
-            setRefreshTrigger((prevState) => !prevState);
+            resetAllFilters();
           }}
           className="text-gray-500 mb-4"
         >
