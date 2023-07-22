@@ -1,5 +1,5 @@
 import { type ICar } from "src/interfaces";
-import { formatPrice } from "src/utils";
+import { formatPrice, formatText } from "src/utils";
 import { useCookies } from "react-cookie";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
@@ -26,22 +26,7 @@ export const CarCard = ({ car, onCarDelete }: IProps) => {
 
   return (
     <>
-      <div className="w-full p-4 relative">
-        {cookies.role === UserRoles.Admin && (
-          <>
-            <BsFillPencilFill
-              onClick={onCarEdit}
-              data-testid="edit-button"
-              className="absolute text-2xl text-gray-900 bottom-9 right-20 hover:cursor-pointer hover:scale-125 transition-all"
-            />
-            <BsFillTrashFill
-              data-testid="delete-button"
-              className="absolute text-2xl text-red-600 bottom-9 right-9 hover:cursor-pointer hover:scale-125 transition-all"
-              onClick={() => setIsConfirmationModalOpen(true)}
-            />
-          </>
-        )}
-
+      <div className="w-full max-h-[470px] lg:max-h-[420px] p-4 relative min-h-[390px]">
         <div className="h-full bg-white rounded-lg shadow-md hover:shadow-lg hover:cursor-pointer">
           <img
             className="w-full object-cover h-48 rounded-t-lg"
@@ -49,14 +34,32 @@ export const CarCard = ({ car, onCarDelete }: IProps) => {
             alt={car.name}
           />
           <div className="p-4">
-            <div className="font-bold text-xl mb-2">{car.name}</div>
-            <p className="text-gray-700 text-base">{`${car.brandName} - ${car.model} - Ano ${car.year}`}</p>
+            <h1 className="font-bold text-xl mb-2">
+              {formatText(car.name, 23)}
+            </h1>
+            <p className="text-gray-700 text-base">
+              {formatText(`${car.brandName} - ${car.model} - Ano ${car.year}`)}
+            </p>
             <div className="mt-4">
               <span className="inline-block text-2xl text-blue-600 mr-2 mb-2">
                 {formatPrice(car.price)}
               </span>
             </div>
           </div>
+          {cookies.role === UserRoles.Admin && (
+            <div className="flex items-center justify-end mb-4">
+              <BsFillPencilFill
+                onClick={onCarEdit}
+                data-testid="edit-button"
+                className="text-2xl text-gray-900 hover:cursor-pointer hover:scale-125 transition-all mr-4"
+              />
+              <BsFillTrashFill
+                data-testid="delete-button"
+                className="text-2xl text-red-600 hover:cursor-pointer hover:scale-125 transition-all mr-4"
+                onClick={() => setIsConfirmationModalOpen(true)}
+              />
+            </div>
+          )}
         </div>
       </div>
 

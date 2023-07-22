@@ -7,6 +7,7 @@ import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import { useCookies } from "react-cookie";
 import { UserRoles } from "src/enums";
 import { toast } from "react-toastify";
+import { CarCardSkeleton } from "src/components";
 
 export const Home = () => {
   const [cars, setCars] = useState<ICar[]>([]);
@@ -14,6 +15,7 @@ export const Home = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [selectedBrand, setSelectedBrand] = useState("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const [cookies] = useCookies(["token", "role"]);
 
@@ -83,6 +85,7 @@ export const Home = () => {
       setCars(response.cars);
       setCurrentPage(response.currentPage);
       setTotalPages(response.totalPages);
+      setIsLoading(false);
     });
 
     void brandsService.getAllBrands().then((response) => {
@@ -119,12 +122,26 @@ export const Home = () => {
           setSelectedBrand={setSelectedBrand}
         />
 
-        <section>
-          <section className="grid grid-cols-2 md:grid-cols-3 mb-8">
-            {cars.length > 0 &&
+        <section className="w-full">
+          <section className="grid grid-cols-2 md:grid-cols-3 mb-8 min-h-[70vh]">
+            {isLoading ? (
+              <>
+                {Array.from(Array(9).keys()).map((_, index) => (
+                  <CarCardSkeleton key={index} />
+                ))}
+              </>
+            ) : (
               cars.map((car) => (
                 <CarCard key={car.id} car={car} onCarDelete={onCarDelete} />
-              ))}
+              ))
+            )}
+            {cars.length === 0 && (
+              <div className="flex items-center justify-center w-full h-full col-span-3">
+                <p className="text-center text-xl text-gray-500">
+                  Nenhum carro encontrado
+                </p>
+              </div>
+            )}
           </section>
 
           <div className="w-full flex mb-12">

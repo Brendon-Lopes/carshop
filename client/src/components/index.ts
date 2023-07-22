@@ -5,3 +5,4 @@ export { SideBar } from "./SideBar";
 export { RegisterCarForm } from "./RegisterCarForm";
 export { Modal } from "./Modal";
 export { ConfirmationModal } from "./Modal/ConfirmationModal";
+export { CarCardSkeleton } from "./CarCard/CarCardSkeleton";

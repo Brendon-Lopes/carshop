@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ICar, type IBrand } from "src/interfaces";
 import * as brandService from "src/services/brand.service";
@@ -14,6 +14,7 @@ import {
 import { HttpStatusCode } from "axios";
 
 export const RegisterCarForm = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const location = useLocation();
   const state = location.state as { editMode: boolean; car: ICar };
   const editMode = state.editMode;
@@ -28,6 +29,15 @@ export const RegisterCarForm = () => {
 
   const [selectedBrand, setSelectedBrand] = useState<string>(
     editMode ? state.car.brandId : ""
+  );
+
+  const [formattedPrice, setFormattedPrice] = useState<string>(
+    editMode
+      ? state.car.price.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        })
+      : ""
   );
 
   const [triggerReloadBrands, setTriggerReloadBrands] =
@@ -47,6 +57,27 @@ export const RegisterCarForm = () => {
     handleSubmit,
     setValue,
   } = formMethods;
+
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value.replace(/\D/g, ""); // Remova todos os caracteres não numéricos
+    const price = parseInt(rawValue, 10) / 100; // Converta para centavos
+
+    setFormattedPrice(
+      price
+        ? price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+        : ""
+    );
+    setValue("price", price); // Atualize o valor no react-hook-form
+
+    if (inputRef.current && price) {
+      const selectionStart = inputRef.current.selectionStart;
+      const selectionEnd = inputRef.current.selectionEnd;
+
+      inputRef.current.value = formattedPrice;
+
+      inputRef.current.setSelectionRange(selectionStart, selectionEnd);
+    }
+  };
 
   const onSubmit = (data: ICreateCarFormData) => {
     const token = cookies.token as string;
@@ -228,8 +259,10 @@ export const RegisterCarForm = () => {
             Preço
           </label>
           <input
-            type="number"
-            {...register("price")}
+            ref={inputRef}
+            type="text"
+            value={formattedPrice}
+            onChange={handlePriceChange} // Use a função handlePriceChange em vez de usar o código diretamente
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           />
           {errors.price !== undefined && (
