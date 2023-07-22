@@ -174,6 +174,7 @@ export const RegisterCarForm = () => {
             type="text"
             {...register("name")}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            placeholder="Nome do carro"
           />
           {errors.name !== undefined && (
             <p className="error-message">{errors.name.message}</p>
@@ -191,6 +192,7 @@ export const RegisterCarForm = () => {
             type="text"
             {...register("model")}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            placeholder="Modelo do carro"
           />
           {errors.model !== undefined && (
             <p className="error-message">{errors.model.message}</p>
