@@ -6,3 +6,4 @@ export { RegisterCarForm } from "./RegisterCarForm";
 export { Modal } from "./Modal";
 export { ConfirmationModal } from "./Modal/ConfirmationModal";
 export { CarCardSkeleton } from "./CarCard/CarCardSkeleton";
+export { ActiveFilter } from "./ActiveFilter";
