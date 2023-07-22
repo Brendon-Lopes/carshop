@@ -262,8 +262,9 @@ export const RegisterCarForm = () => {
             ref={inputRef}
             type="text"
             value={formattedPrice}
-            onChange={handlePriceChange} // Use a função handlePriceChange em vez de usar o código diretamente
+            onChange={handlePriceChange}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            placeholder="R$ 0,00"
           />
           {errors.price !== undefined && (
             <p className="error-message">{errors.price.message}</p>
@@ -281,6 +282,7 @@ export const RegisterCarForm = () => {
             type="url"
             {...register("imageUrl")}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            placeholder="https://example.com/image.png"
           />
           {errors.imageUrl !== undefined && (
             <p className="error-message">{errors.imageUrl.message}</p>
