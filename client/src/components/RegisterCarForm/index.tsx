@@ -59,15 +59,15 @@ export const RegisterCarForm = () => {
   } = formMethods;
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value.replace(/\D/g, ""); // Remova todos os caracteres não numéricos
-    const price = parseInt(rawValue, 10) / 100; // Converta para centavos
+    const rawValue = e.target.value.replace(/\D/g, "");
+    const price = parseInt(rawValue, 10) / 100;
 
     setFormattedPrice(
       price
         ? price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
         : ""
     );
-    setValue("price", price); // Atualize o valor no react-hook-form
+    setValue("price", price);
 
     if (inputRef.current && price) {
       const selectionStart = inputRef.current.selectionStart;
