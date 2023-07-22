@@ -192,6 +192,8 @@ export const Home = () => {
             <section className="m-auto flex items-center text-lg">
               <button
                 onClick={goPreviousPage}
+                aria-label="Página anterior"
+                disabled={currentPage == 1}
                 className={`p-3 ${
                   currentPage == 1
                     ? "bg-gray-300 cursor-default"
@@ -205,6 +207,8 @@ export const Home = () => {
 
               <button
                 onClick={goNextPage}
+                aria-label="Próxima página"
+                disabled={currentPage == totalPages}
                 className={`p-3 ${
                   currentPage == totalPages
                     ? "bg-gray-300 cursor-default"

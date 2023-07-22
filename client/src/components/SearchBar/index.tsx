@@ -44,6 +44,7 @@ export const SearchBar = ({
             "
             data-testid="submit-btn"
             type="submit"
+            arial-label="Buscar"
           >
             <BsSearch className="text-xl" />
           </button>
