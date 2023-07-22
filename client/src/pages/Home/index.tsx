@@ -148,7 +148,11 @@ export const Home = () => {
             <section className="m-auto flex items-center text-lg">
               <button
                 onClick={goPreviousPage}
-                className="p-3 bg-gray-800 rounded-md mx-3"
+                className={`p-3 ${
+                  currentPage == 1
+                    ? "bg-gray-300 cursor-default"
+                    : "bg-gray-800"
+                } rounded-md mx-3`}
               >
                 <BsChevronLeft className="text-white" />
               </button>
@@ -157,7 +161,11 @@ export const Home = () => {
 
               <button
                 onClick={goNextPage}
-                className="p-3 bg-gray-800 rounded-md mx-3"
+                className={`p-3 ${
+                  currentPage == totalPages
+                    ? "bg-gray-300 cursor-default"
+                    : "bg-gray-800"
+                } rounded-md mx-3`}
               >
                 <BsChevronRight className="text-white" />
               </button>
