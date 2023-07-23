@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
     // Dependency injection
     builder.Services
-        .AddInfrastructure(builder.Configuration)
+        .AddInfrastructure(builder.Configuration, builder.Environment)
         .AddApplication();
 
     // Authentication / Authorization
@@ -47,3 +47,5 @@ var app = builder.Build();
     app.MapControllers();
     app.Run();
 }
+
+public partial class Program { }
