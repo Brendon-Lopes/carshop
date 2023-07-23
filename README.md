@@ -93,8 +93,6 @@ Requisitos:
 
 1. Tenha um banco de dados SQL Server rodando.
 
-   <br />
-
 2. Entre na pasta do backend:
 
 ```bash
