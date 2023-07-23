@@ -33,6 +33,7 @@ export const Home = () => {
       .getAllCars({ name: search, brandName: selectedBrand })
       .then((response) => {
         if (response) setCars(response.cars);
+        setTotalPages(response.totalPages);
       });
 
     setActiveFilters({ ...activeFilters, search });
