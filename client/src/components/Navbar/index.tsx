@@ -5,6 +5,7 @@ import { BiLogOutCircle } from "react-icons/bi";
 import { UserRoles } from "src/enums";
 import { ConfirmationModal } from "src/components";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export const Navbar = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ export const Navbar = () => {
     removeCookie("token", { path: "/" });
     removeCookie("userFirstName", { path: "/" });
     removeCookie("role", { path: "/" });
+    toast.info("Você foi deslogado com sucesso.");
     navigate("/");
   };
 
